@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.lastfmtest.presentation.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_navigation_home_to_albumDetailsFragment"
+            app:destination="@id/albumDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="com.example.lastfmtest.presentation.ui.search.SearchFragment"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_navigation_search_to_navigation_artist_top_albums"
+            app:destination="@id/navigation_artist_top_albums" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_artist_top_albums"
+        android:name="com.example.lastfmtest.presentation.ui.artisttopalbums.ArtistTopAlbumsFragment"
+        android:label="@string/title_top"
+        tools:layout="@layout/fragment_artist_top_albums">
+        <argument
+            android:name="artist_mbid"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_artist_top_albums_to_albumDetailsFragment"
+            app:destination="@id/albumDetailsFragment" />
+        <argument
+            android:name="artist_name"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/albumDetailsFragment"
+        android:name="com.example.lastfmtest.presentation.ui.albumdetails.AlbumDetailsFragment"
+        android:label="@string/title_album_details"
+        tools:layout="@layout/fragment_album_details" >
+        <argument
+            android:name="album_id"
+            app:argType="string" />
+        <argument android:name="album_name" />
+    </fragment>
+</navigation>

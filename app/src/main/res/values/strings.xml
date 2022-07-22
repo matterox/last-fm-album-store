@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Last Fm Test</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_top">Top By: %s</string>
+    <string name="title_album_details">Album: %s</string>
+    <string name="tracks_label">Tracks:</string>
+    <string name="tags_label">Tags:</string>
+    <string name="artist_label">Artist: %s</string>
+    <string name="empty_saved_albums">Your saved albums are empty!\nSearch and add your favorite albums in \"Serach\" tab.</string>
+    <string name="search_artist_hint">Enter artist name</string>
+    <string name="search_empty">No results were found.\nTry another query.</string>
+    <string name="album_details_no_mbid">Can\'t load album details. Missing MBID.</string>
+    <string name="artist_playlist_no_mbid">Can\'t load artist playlist. Missing MBID.</string>
+</resources>
