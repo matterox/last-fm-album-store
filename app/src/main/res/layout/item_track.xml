@@ -14,7 +14,6 @@
         android:clickable="true"
         android:elevation="4dp"
         android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,16 +52,16 @@
                 tools:text="Track Name" />
 
             <TextView
-                android:gravity="center_vertical"
                 android:id="@+id/tvPlace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                tools:text="10"
+                android:gravity="center_vertical"
+                app:drawableStartCompat="@drawable/ic_baseline_equalizer_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:drawableStartCompat="@drawable/ic_baseline_equalizer_24" />
+                tools:text="10" />
 
             <TextView
                 android:id="@+id/tvDuration"

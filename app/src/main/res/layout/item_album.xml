@@ -42,7 +42,9 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:maxLines="2"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/tvArtists"
@@ -50,8 +52,6 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/imageView"
                 app:layout_constraintTop_toTopOf="parent"
-                android:ellipsize="end"
-                android:maxLines="2"
                 tools:text="Album Name" />
 
             <TextView
@@ -60,8 +60,8 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginEnd="4dp"
-                android:gravity="center"
                 android:ellipsize="end"
+                android:gravity="center"
                 android:maxLines="3"
                 app:layout_constraintBottom_toTopOf="@+id/imageView3"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -72,14 +72,14 @@
 
             <com.example.lastfmtest.presentation.ui.views.LikeView
                 android:id="@+id/ivSave"
-                android:clickable="true"
-                android:focusable="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tvPlays"
@@ -101,11 +101,11 @@
                 app:srcCompat="@drawable/ic_baseline_play_arrow_24" />
 
             <ProgressBar
-                android:indeterminate="true"
                 android:id="@+id/pbCoverLoading"
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:indeterminate="true"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView"
                 app:layout_constraintEnd_toEndOf="@+id/imageView"
                 app:layout_constraintStart_toStartOf="@+id/imageView"

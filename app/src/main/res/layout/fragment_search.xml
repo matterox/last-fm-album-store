@@ -8,9 +8,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/tilSearch"
+        style="@style/CardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/CardView"
         android:elevation="4dp"
         android:paddingTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,17 +23,17 @@
             android:orientation="horizontal">
 
             <com.google.android.material.textfield.TextInputEditText
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:gravity="start|center_vertical"
-                android:textSize="18sp"
                 android:id="@+id/etSearch"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:gravity="start|center_vertical"
                 android:hint="@string/search_artist_hint"
                 android:imeOptions="actionDone|flagNoExtractUi"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/btnSearch"
@@ -63,29 +63,29 @@
     <TextView
         android:id="@+id/tvEmptySearch"
         android:layout_width="0dp"
-        android:visibility="gone"
-        tools:visibility="gone"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
         android:text="@string/search_empty"
+        android:textSize="20sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pbSearchProgress" />
+        app:layout_constraintTop_toBottomOf="@+id/pbSearchProgress"
+        tools:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:visibility="gone"
-        tools:visibility="visible"
         android:id="@+id/rvArtist"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="gone"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pbSearchProgress"
-        tools:listitem="@layout/item_artist" />
+        tools:listitem="@layout/item_artist"
+        tools:visibility="visible" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
