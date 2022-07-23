@@ -36,7 +36,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    // TODO: Move to use case?
     fun albumClicked(album: AlbumData) {
         viewModelScope.launch {
             if (album.mbid.isBlank()) {
@@ -52,7 +51,6 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    // TODO: Move to use case?
     fun albumFavoriteClicked(model: AlbumData) {
         viewModelScope.launch {
             when (model.isSaved) {
