@@ -6,7 +6,7 @@ import com.example.lastfmtest.domain.model.AlbumData
 import java.util.*
 
 class AlbumMapper {
-    fun transform(albums: ArtistAlbumsResponse): List<AlbumData> {
+    fun fromResponse(albums: ArtistAlbumsResponse): List<AlbumData> {
         return albums.topalbums?.album?.map { album ->
             AlbumData(
                 mbid = album.mbid ?: "",

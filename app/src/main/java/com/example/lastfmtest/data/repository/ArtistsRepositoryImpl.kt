@@ -24,14 +24,14 @@ class ArtistsRepositoryImpl(
     override suspend fun searchArtist(query: String): EitherResult<DefaultDomainError, List<ArtistData>> {
         return requestHandler.safeRequest(
             response = { api.searchArtist(query) },
-            successTransform = artistMapper::transform
+            successTransform = artistMapper::fromResponse
         )
     }
 
     override suspend fun getTopAlbums(artistId: String): EitherResult<DefaultDomainError, List<AlbumData>> {
         return requestHandler.safeRequest(
             response = { api.getTopAlbums(artistId) },
-            successTransform = { result -> albumMapper.transform(result) }
+            successTransform = { result -> albumMapper.fromResponse(result) }
         )
     }
 

@@ -24,7 +24,7 @@ import javax.inject.Singleton
 object NetworkModule {
     @Provides
     @Singleton
-    @Named("LatestFmOkHttp")
+    @Named("LastFmOkHttp")
     fun provideOkHttp(): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
@@ -36,7 +36,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideLastFmApi(moshi: Moshi, @Named("LatestFmOkHttp") okHttpClient: OkHttpClient): LastFmService {
+    fun provideLastFmApi(
+        moshi: Moshi,
+        @Named("LastFmOkHttp") okHttpClient: OkHttpClient
+    ): LastFmService {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.LAST_FM_API_BASE_URL)
             .client(okHttpClient)

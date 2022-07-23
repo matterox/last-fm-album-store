@@ -4,7 +4,7 @@ import com.example.lastfmtest.data.model.ArtistDataResponse
 import com.example.lastfmtest.domain.model.ArtistData
 
 class ArtistMapper {
-    fun transform(model: ArtistDataResponse): List<ArtistData> {
+    fun fromResponse(model: ArtistDataResponse): List<ArtistData> {
         return model.results?.artistMatches?.artists?.map { artistData ->
             artistData.let { artist ->
                 ArtistData(
