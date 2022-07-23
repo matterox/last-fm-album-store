@@ -26,7 +26,7 @@ class AlbumMapper {
             mbid = albumData.mbid,
             name = albumData.name,
             artistMbid = albumData.artistMbid,
-            artistName = albumData.name,
+            artistName = albumData.artistName,
             plays = albumData.playCount,
             timestamp = Date()
         )
