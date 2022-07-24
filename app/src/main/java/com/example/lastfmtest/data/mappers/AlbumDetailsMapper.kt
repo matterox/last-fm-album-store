@@ -20,6 +20,7 @@ class AlbumDetailsMapper {
                 tracks = it.tracks?.track?.map { track ->
                     AlbumDetailsData.Track(
                         name = track.name ?: "",
+                        artist = track.artist?.name ?: it.artist ?: "",
                         duration = track.duration ?: 0L,
                         url = track.url ?: "",
                         rank = track.attr?.rank ?: -1
@@ -41,7 +42,7 @@ class AlbumDetailsMapper {
         val trackEntities = album.tracks.map { track ->
             TrackEntity(
                 name = track.name,
-                artistName = album.artist,
+                artistName = track.artist,
                 albumMbid = album.mbid,
                 url = track.url,
                 duration = track.duration,
@@ -66,6 +67,7 @@ class AlbumDetailsMapper {
                 tracks = tracks.map { track ->
                     AlbumDetailsData.Track(
                         name = track.name,
+                        artist = track.artistName,
                         duration = track.duration,
                         url = track.url,
                         rank = track.rank

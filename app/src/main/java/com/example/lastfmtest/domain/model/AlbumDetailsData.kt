@@ -12,6 +12,7 @@ data class AlbumDetailsData(
 ) {
     data class Track(
         val name: String,
+        val artist: String,
         val duration: Long,
         val url: String,
         val rank: Long
