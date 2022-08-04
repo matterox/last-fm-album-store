@@ -11,8 +11,7 @@ import com.example.lastfmtest.domain.repository.ArtistsRepository
 import com.example.lastfmtest.presentation.ui.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,6 +21,8 @@ class HomeViewModel @Inject constructor(
     private val resources: Resources
 ) : BaseViewModel() {
 
+    private val _undoDeleteAlbumLiveData = MutableSharedFlow<AlbumData>()
+    val undoDeleteAlbumLiveData: Flow<AlbumData> = _undoDeleteAlbumLiveData.asSharedFlow()
     private val _savedAlbumsLiveData = MutableLiveData<List<AlbumData>>()
     val savedAlbumsLiveData: LiveData<List<AlbumData>> = _savedAlbumsLiveData
     private val _navigationAlbumFlow = Channel<MbidNavigationData>()
@@ -51,8 +52,9 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun removeFromFavorites(model: AlbumData) {
+    fun onAlbumLikeClicked(model: AlbumData) {
         viewModelScope.launch {
+            _undoDeleteAlbumLiveData.emit(model)
             artistsRepository.removeFromFavorites(model.mbid)
         }
     }

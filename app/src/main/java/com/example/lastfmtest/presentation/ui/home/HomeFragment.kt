@@ -34,7 +34,7 @@ class HomeFragment : BaseFragment() {
         binding.rvSavedAlbums.adapter = adapter
 
         adapter.onAlbumClicked = homeViewModel::albumClicked
-        adapter.onFavoriteClicked = ::showUndoAlbumDeletionSnackBar
+        adapter.onFavoriteClicked = homeViewModel::onAlbumLikeClicked
 
         homeViewModel.apply {
             savedAlbumsLiveData.observe(viewLifecycleOwner) { albums ->
@@ -46,6 +46,9 @@ class HomeFragment : BaseFragment() {
                     binding.rvSavedAlbums.isVisible = true
                 }
                 adapter.items = albums
+            }
+            collectLatestLifecycleFlow(undoDeleteAlbumLiveData) { album ->
+                showUndoAlbumDeletionSnackBar(album)
             }
             collectLatestLifecycleFlow(navigationAlbumFlow) { navigationData ->
                 val direction = HomeFragmentDirections.actionNavigationHomeToAlbumDetailsFragment(
@@ -59,7 +62,6 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun showUndoAlbumDeletionSnackBar(item: AlbumData) {
-        homeViewModel.removeFromFavorites(item)
         showUndoSnackBar(getString(R.string.album_deleted), getString(R.string.undo), {
             homeViewModel.addToFavorites(item)
         }, {
