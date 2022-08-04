@@ -27,8 +27,8 @@ class HomeViewModel @Inject constructor(
     private val _navigationAlbumFlow = Channel<MbidNavigationData>()
     val navigationAlbumFlow: Flow<MbidNavigationData> = _navigationAlbumFlow.receiveAsFlow()
 
-    override fun start() {
-        super.start()
+    override fun started() {
+        super.started()
         viewModelScope.launch {
             artistsRepository.observeSavedAlbums().collect {
                 _savedAlbumsLiveData.value = it

@@ -13,9 +13,15 @@ abstract class BaseViewModel: ViewModel() {
     val errorSnackBarFlow: Flow<String> = _errorSnackBarFlow.receiveAsFlow()
     protected val _progressLiveData = MutableLiveData<Boolean>()
     val progressLiveData: LiveData<Boolean> = _progressLiveData
+    private var _started: Boolean = false
 
-    open fun start() {
+    fun start() {
+        if (_started) return
+        started()
+    }
 
+    protected open fun started() {
+        _started = true
     }
 
     protected fun triggerErrorSnackBar(errorMessage: String) {

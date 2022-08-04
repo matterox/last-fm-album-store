@@ -3,36 +3,18 @@ package com.example.lastfmtest.presentation.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lastfmtest.databinding.ItemTrackBinding
 import com.example.lastfmtest.domain.model.AlbumDetailsData
+import com.example.lastfmtest.presentation.ui.adapters.diffutils.TrackDiffUtil
 import kotlin.time.Duration.Companion.seconds
 
-class TrackAdapter: RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
-
-    private val diffUtilsCallback = object : DiffUtil.ItemCallback<AlbumDetailsData.Track>() {
-        override fun areItemsTheSame(
-            oldItem: AlbumDetailsData.Track,
-            newItem: AlbumDetailsData.Track
-        ): Boolean {
-            return oldItem.name == newItem.name
-        }
-
-        override fun areContentsTheSame(
-            oldItem: AlbumDetailsData.Track,
-            newItem: AlbumDetailsData.Track
-        ): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-    private val differ = AsyncListDiffer(this, diffUtilsCallback)
+class TrackAdapter: ListAdapter<AlbumDetailsData.Track, TrackAdapter.TrackViewHolder>(TrackDiffUtil()) {
     var items: List<AlbumDetailsData.Track>
-        get() = differ.currentList
+        get() = currentList
         set(value) {
-            differ.submitList(value)
+            submitList(value)
         }
 
     override fun onCreateViewHolder(
@@ -45,10 +27,8 @@ class TrackAdapter: RecyclerView.Adapter<TrackAdapter.TrackViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TrackAdapter.TrackViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = items.count()
 
     inner class TrackViewHolder(private val binding: ItemTrackBinding): RecyclerView.ViewHolder(binding.root) {
 

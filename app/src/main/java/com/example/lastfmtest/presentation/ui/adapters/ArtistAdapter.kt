@@ -3,32 +3,20 @@ package com.example.lastfmtest.presentation.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lastfmtest.databinding.ItemArtistBinding
 import com.example.lastfmtest.domain.model.ArtistData
 import com.example.lastfmtest.presentation.helper.loadAndCacheImage
+import com.example.lastfmtest.presentation.ui.adapters.diffutils.ArtistDiffUtil
 
-// TODO: Make base class (SingleTypeAdapter)
-class ArtistAdapter: RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder>() {
+class ArtistAdapter: ListAdapter<ArtistData, ArtistAdapter.ArtistViewHolder>(ArtistDiffUtil()) {
     var onArtistClicked: ((ArtistData) -> Unit)? = null
 
-    private val diffUtilsCallback = object : DiffUtil.ItemCallback<ArtistData>() {
-        override fun areItemsTheSame(oldItem: ArtistData, newItem: ArtistData): Boolean {
-            return oldItem.mbid == newItem.mbid
-        }
-
-        override fun areContentsTheSame(oldItem: ArtistData, newItem: ArtistData): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-    private val differ = AsyncListDiffer(this, diffUtilsCallback)
     var items: List<ArtistData>
-        get() = differ.currentList
+        get() = currentList
         set(value) {
-            differ.submitList(value)
+            submitList(value)
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
@@ -38,10 +26,8 @@ class ArtistAdapter: RecyclerView.Adapter<ArtistAdapter.ArtistViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = items.count()
 
     inner class ArtistViewHolder(private val binding: ItemArtistBinding) : RecyclerView.ViewHolder(binding.root) {
 

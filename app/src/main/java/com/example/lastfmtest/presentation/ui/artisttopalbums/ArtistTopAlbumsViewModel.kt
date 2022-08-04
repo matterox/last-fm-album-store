@@ -31,8 +31,8 @@ class ArtistTopAlbumsViewModel @Inject constructor(
     private val _navigationAlbumFlow = Channel<MbidNavigationData>()
     val navigationAlbumFlow: Flow<MbidNavigationData> = _navigationAlbumFlow.receiveAsFlow()
 
-    override fun start() {
-        super.start()
+    override fun started() {
+        super.started()
         _artistNameLiveData.value = artistName
         _progressLiveData.value = true
         viewModelScope.launch {

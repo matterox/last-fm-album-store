@@ -35,7 +35,7 @@ class ArtistsRepositoryImpl(
         )
     }
 
-    override suspend fun observeAlbumDetails(albumId: String): EiterResultFlow<DefaultDomainError, AlbumDetailsData> {
+    override fun observeAlbumDetails(albumId: String): EiterResultFlow<DefaultDomainError, AlbumDetailsData> {
         return flow {
             val cacheEntries = albumDao.getDetails(albumId)
             val cachedAlbumDetailsEntity = cacheEntries.firstOrNull()

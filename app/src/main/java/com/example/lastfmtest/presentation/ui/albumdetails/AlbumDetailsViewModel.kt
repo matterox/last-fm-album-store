@@ -26,8 +26,8 @@ class AlbumDetailsViewModel @Inject constructor(
     private val _albumDetailsState = MutableStateFlow(AlbumDetailsData.EMPTY)
     val albumsLiveData: StateFlow<AlbumDetailsData> = _albumDetailsState.asStateFlow()
 
-    override fun start() {
-        super.start()
+    override fun started() {
+        super.started()
         _albumNameLiveData.value = albumName
         viewModelScope.launch {
             artistsRepository.observeAlbumDetails(albumMbid).collect { result ->

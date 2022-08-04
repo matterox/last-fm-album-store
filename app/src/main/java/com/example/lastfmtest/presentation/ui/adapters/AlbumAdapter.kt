@@ -3,36 +3,24 @@ package com.example.lastfmtest.presentation.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lastfmtest.R
 import com.example.lastfmtest.databinding.ItemAlbumBinding
 import com.example.lastfmtest.domain.model.AlbumData
 import com.example.lastfmtest.presentation.helper.loadAndCacheImage
+import com.example.lastfmtest.presentation.ui.adapters.diffutils.AlbumDiffUtil
 import java.text.NumberFormat
 import java.util.*
 
-// TODO: Make base class (SingleTypeAdapter)
-class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
+class AlbumAdapter: ListAdapter<AlbumData, AlbumAdapter.AlbumViewHolder>(AlbumDiffUtil()) {
     var onAlbumClicked: ((AlbumData) -> Unit)? = null
     var onFavoriteClicked: ((AlbumData) -> Unit)? = null
 
-    private val diffUtilsCallback = object : DiffUtil.ItemCallback<AlbumData>() {
-        override fun areItemsTheSame(oldItem: AlbumData, newItem: AlbumData): Boolean {
-            return oldItem.mbid == newItem.mbid
-        }
-
-        override fun areContentsTheSame(oldItem: AlbumData, newItem: AlbumData): Boolean {
-            return oldItem == newItem
-        }
-
-    }
-    private val differ = AsyncListDiffer(this, diffUtilsCallback)
     var items: List<AlbumData>
-        get() = differ.currentList
+        get() = currentList
         set(value) {
-            differ.submitList(value)
+            submitList(value)
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AlbumViewHolder {
@@ -42,10 +30,8 @@ class AlbumAdapter: RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: AlbumViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
-
-    override fun getItemCount(): Int = items.count()
 
     inner class AlbumViewHolder(private val binding: ItemAlbumBinding): RecyclerView.ViewHolder(binding.root) {
 
