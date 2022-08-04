@@ -11,5 +11,7 @@ interface ArtistsRepository {
     fun observeAlbumDetails(albumId: String): EiterResultFlow<DefaultDomainError, AlbumDetailsData>
     suspend fun observeSavedAlbums(): Flow<List<AlbumData>>
     suspend fun saveAlbum(albumData: AlbumData): EitherResult<DefaultDomainError, Unit>
+    suspend fun addToFavorites(albumId: String)
+    suspend fun removeFromFavorites(albumId: String)
     suspend fun deleteAlbum(albumId: String)
 }

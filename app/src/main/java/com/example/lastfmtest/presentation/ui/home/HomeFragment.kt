@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.example.lastfmtest.R
 import com.example.lastfmtest.databinding.FragmentHomeBinding
+import com.example.lastfmtest.domain.model.AlbumData
 import com.example.lastfmtest.presentation.helper.collectLatestLifecycleFlow
 import com.example.lastfmtest.presentation.ui.adapters.AlbumAdapter
 import com.example.lastfmtest.presentation.ui.base.BaseFragment
@@ -32,7 +34,7 @@ class HomeFragment : BaseFragment() {
         binding.rvSavedAlbums.adapter = adapter
 
         adapter.onAlbumClicked = homeViewModel::albumClicked
-        adapter.onFavoriteClicked = homeViewModel::albumFavoriteClicked
+        adapter.onFavoriteClicked = ::showUndoAlbumDeletionSnackBar
 
         homeViewModel.apply {
             savedAlbumsLiveData.observe(viewLifecycleOwner) { albums ->
@@ -54,5 +56,14 @@ class HomeFragment : BaseFragment() {
             }
             start()
         }
+    }
+
+    private fun showUndoAlbumDeletionSnackBar(item: AlbumData) {
+        homeViewModel.removeFromFavorites(item)
+        showUndoSnackBar(getString(R.string.album_deleted), getString(R.string.undo), {
+            homeViewModel.addToFavorites(item)
+        }, {
+            homeViewModel.removeAlbum(item)
+        })
     }
 }

@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
         super.started()
         viewModelScope.launch {
             artistsRepository.observeSavedAlbums().collect {
-                _savedAlbumsLiveData.value = it
+                _savedAlbumsLiveData.value = it.filter { it.isSaved }
             }
         }
     }
@@ -51,16 +51,21 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun albumFavoriteClicked(model: AlbumData) {
+    fun removeFromFavorites(model: AlbumData) {
         viewModelScope.launch {
-            when (model.isSaved) {
-                true -> {
-                    artistsRepository.deleteAlbum(model.mbid)
-                }
-                false -> {
-                    artistsRepository.saveAlbum(model)
-                }
-            }
+            artistsRepository.removeFromFavorites(model.mbid)
+        }
+    }
+
+    fun addToFavorites(model: AlbumData) {
+        viewModelScope.launch {
+            artistsRepository.addToFavorites(model.mbid)
+        }
+    }
+
+    fun removeAlbum(model: AlbumData) {
+        viewModelScope.launch {
+            artistsRepository.deleteAlbum(model.mbid)
         }
     }
 }

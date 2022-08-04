@@ -29,6 +29,26 @@ fun Fragment.showShortSnackBar(message: String) {
     ).show()
 }
 
+fun Fragment.showActionSnackBar(message: String, actionText: String, action: () -> (Unit), dismissAction: (() -> Unit)? = null) {
+    Snackbar.make(
+        requireView(),
+        message,
+        Snackbar.LENGTH_LONG
+    )
+        .setAction(actionText) {
+            action.invoke()
+        }
+        .addCallback(object: Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                super.onDismissed(transientBottomBar, event)
+                if (event != DISMISS_EVENT_ACTION) {
+                    dismissAction?.invoke()
+                }
+            }
+        })
+        .show()
+}
+
 fun Fragment.hideKeyboard() {
     view?.let { activity?.hideKeyboard(it) }
 }

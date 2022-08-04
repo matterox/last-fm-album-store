@@ -12,4 +12,6 @@
     <string name="search_empty">No results were found.\nTry another query.</string>
     <string name="album_details_no_mbid">Can\'t load album details. Missing MBID.</string>
     <string name="artist_playlist_no_mbid">Can\'t load artist playlist. Missing MBID.</string>
+    <string name="album_deleted">Album was deleted from favorites.</string>
+    <string name="undo">UNDO</string>
 </resources>

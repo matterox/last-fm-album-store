@@ -14,7 +14,7 @@ import com.example.lastfmtest.data.room.entities.TrackEntity
         AlbumDetailsEntity::class,
         TrackEntity::class
     ],
-    version = 1
+    version = 2
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

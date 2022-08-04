@@ -2,8 +2,11 @@ package com.example.lastfmtest.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.lastfmtest.data.room.AlbumDao
 import com.example.lastfmtest.data.room.AppDatabase
+import com.example.lastfmtest.data.room.RoomMigrations
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +24,9 @@ object DatabaseModule {
             applicationContext,
             AppDatabase::class.java,
             "app-database"
-        ).build()
+        )
+            .addMigrations(RoomMigrations.MIGRATION_1_2)
+            .build()
     }
 
     @Provides

@@ -49,12 +49,12 @@ class ArtistTopAlbumsViewModel @Inject constructor(
     private fun observeSavedAlbums(topAlbums: List<AlbumData>) {
         viewModelScope.launch {
             artistsRepository.observeSavedAlbums().collect { savedAlbumsResult ->
-                val savedMbids = savedAlbumsResult.map { it.mbid }.toSet()
-                _albumsLiveData.value = topAlbums.map { localAlbum ->
-                    if (savedMbids.contains(localAlbum.mbid))
-                        localAlbum.copy(isSaved = true)
+                val savedMbids = savedAlbumsResult.filter { it.isSaved }.map { it.mbid }.toSet()
+                _albumsLiveData.value = topAlbums.map { topRemoteAlbum ->
+                    if (savedMbids.contains(topRemoteAlbum.mbid))
+                        topRemoteAlbum.copy(isSaved = true)
                     else
-                        localAlbum.copy(isSaved = false)
+                        topRemoteAlbum.copy(isSaved = false)
                 }
             }
         }

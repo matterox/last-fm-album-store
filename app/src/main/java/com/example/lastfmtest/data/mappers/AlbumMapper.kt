@@ -28,7 +28,8 @@ class AlbumMapper {
             artistMbid = albumData.artistMbid,
             artistName = albumData.artistName,
             plays = albumData.playCount,
-            timestamp = Date()
+            timestamp = Date(),
+            isFavorite = albumData.isSaved
         )
     }
 
@@ -40,7 +41,7 @@ class AlbumMapper {
             artistMbid = entity.artistMbid,
             artistName = entity.artistName,
             image = MapperHelper.albumImageFromMbid(entity.mbid),
-            isSaved = true
+            isSaved = entity.isFavorite
         )
     }
 }

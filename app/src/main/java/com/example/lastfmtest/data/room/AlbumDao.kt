@@ -24,6 +24,9 @@ interface AlbumDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTracks(tracks: List<TrackEntity>)
 
+    @Query("UPDATE favoritealbumentity SET isFavorite = :isFavorite WHERE albumMbid = :albumId ")
+    suspend fun updateFavorite(albumId: String, isFavorite: Boolean)
+
     @Query("SELECT * FROM favoritealbumentity")
     fun observeFavorites(): Flow<List<FavoriteAlbumEntity>>
 

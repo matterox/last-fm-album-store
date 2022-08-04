@@ -67,7 +67,7 @@ class ArtistsRepositoryImpl(
     }
 
     override suspend fun saveAlbum(albumData: AlbumData): EitherResult<DefaultDomainError, Unit> {
-        albumDao.insertFavorite(albumMapper.toEntity(albumData))
+        albumDao.insertFavorite(albumMapper.toEntity(albumData.copy(isSaved = true)))
 
         // Caching album details for offline
         val albumDetailsRemoteResult = requestHandler.safeRequest(
@@ -87,6 +87,14 @@ class ArtistsRepositoryImpl(
                 albumDetailsRemoteResult
             }
         }
+    }
+
+    override suspend fun addToFavorites(albumId: String) {
+        albumDao.updateFavorite(albumId, true)
+    }
+
+    override suspend fun removeFromFavorites(albumId: String) {
+        albumDao.updateFavorite(albumId, false)
     }
 
     override suspend fun deleteAlbum(albumId: String) {

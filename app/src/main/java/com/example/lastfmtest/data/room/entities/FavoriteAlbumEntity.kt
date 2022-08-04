@@ -12,4 +12,5 @@ data class FavoriteAlbumEntity(
     @ColumnInfo(name = "artistName") val artistName: String,
     @ColumnInfo(name = "plays") val plays: Long,
     @ColumnInfo(name = "timestamp") val timestamp: Date,
+    @ColumnInfo(name = "isFavorite") val isFavorite: Boolean,
 )
